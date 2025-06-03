@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import './../styles/App.css';
+import '../App.css'; // adjust path if needed
 
 const App = () => {
   const [query, setQuery] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState("");
 
-  const API_KEY = "YOUR_API_KEY"; // Replace with your real OpenWeatherMap API key
+  const API_KEY = "YOUR_API_KEY_HERE"; // Replace with your actual OpenWeatherMap API key
 
   const fetchWeather = async () => {
     if (!query) return;
 
     try {
-      const response = await fetch(
+      const res = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${API_KEY}&units=metric`
       );
-      const data = await response.json();
+      const data = await res.json();
 
       if (data.cod === 200) {
         setWeatherData(data);
@@ -24,8 +24,8 @@ const App = () => {
         setWeatherData(null);
         setError("City not found");
       }
-    } catch (err) {
-      setError("Error fetching data");
+    } catch (e) {
+      setError("Error fetching weather data");
       setWeatherData(null);
     }
   };
